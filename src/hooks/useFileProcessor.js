@@ -144,6 +144,8 @@ export function useFileProcessor() {
               statusDesc:     findColValue(row, ['Status Description']),
               inboundCarrier: findColValue(row, ['Inbound Carrier Name']),
               dispatchDockId: findColValue(row, ['Dispatch Dock ID']),
+              inboundUserId:  findColValue(row, ['Inbound User ID', 'INBOUND USER ID']),
+              outboundAddedBy:findColValue(row, ['Outbound Added By', 'OUTBOUND ADDED BY']),
             }
           }).filter((r) => r.shipmentId)
         } catch (e) { errs.push(`Error leyendo TMS: ${e.message}`) }

@@ -63,9 +63,9 @@ export default function PiezasTable({ pieces }) {
           (p.tmsInfo?.dockId || '').toUpperCase().includes(q) ||
           (p.tmsInfo?.labelingZone || '').toUpperCase().includes(q) ||
           (p.tmsInfo?.position || '').toUpperCase().includes(q) ||
-          (p.tmsInfo?.trackingNumber || '').toUpperCase().includes(q) ||
           (p.tmsInfo?.hubStatus || '').toUpperCase().includes(q) ||
-          (p.tmsInfo?.statusDesc || '').toUpperCase().includes(q) ||
+          (p.tmsInfo?.inboundUserId || '').toUpperCase().includes(q) ||
+          (p.tmsInfo?.outboundAddedBy || '').toUpperCase().includes(q) ||
           (p.tmsInfo?.truckId || '').toUpperCase().includes(q)
       )
     }
@@ -80,9 +80,8 @@ export default function PiezasTable({ pieces }) {
         case 'inboundDate':   va = a.tmsInfo?.inboundDate || new Date(0); vb = b.tmsInfo?.inboundDate || new Date(0); break
         case 'position':      va = a.tmsInfo?.position || '';         vb = b.tmsInfo?.position || ''; break
         case 'hubStatus':     va = a.tmsInfo?.hubStatus || '';        vb = b.tmsInfo?.hubStatus || ''; break
-        case 'trackingNumber':va = a.tmsInfo?.trackingNumber || '';   vb = b.tmsInfo?.trackingNumber || ''; break
-        case 'priority':      va = a.tmsInfo?.priority || '';         vb = b.tmsInfo?.priority || ''; break
-        case 'statusDesc':    va = a.tmsInfo?.statusDesc || '';       vb = b.tmsInfo?.statusDesc || ''; break
+        case 'inboundUserId':  va = a.tmsInfo?.inboundUserId || '';   vb = b.tmsInfo?.inboundUserId || ''; break
+        case 'outboundAddedBy':va = a.tmsInfo?.outboundAddedBy || ''; vb = b.tmsInfo?.outboundAddedBy || ''; break
         default:              va = a.targetId;                        vb = b.targetId
       }
       if (va < vb) return sortDir === 'asc' ? -1 : 1
@@ -96,16 +95,15 @@ export default function PiezasTable({ pieces }) {
   const paginated = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
 
   const cols = [
-    { key: 'targetId',       label: 'TARGET ID' },
-    { key: 'status',         label: 'Estado' },
-    { key: 'dockId',         label: 'Inbound Dock ID' },
-    { key: 'labelingZone',   label: 'Labeling Zone' },
-    { key: 'inboundDate',    label: 'Inbound Date Included' },
-    { key: 'position',       label: 'Outbound Position' },
-    { key: 'hubStatus',      label: 'Hub Status' },
-    { key: 'trackingNumber', label: 'Tracking Number' },
-    { key: 'priority',       label: 'Priority' },
-    { key: 'statusDesc',     label: 'Status Description' },
+    { key: 'targetId',        label: 'TARGET ID' },
+    { key: 'status',          label: 'Estado' },
+    { key: 'dockId',          label: 'Inbound Dock ID' },
+    { key: 'labelingZone',    label: 'Labeling Zone' },
+    { key: 'inboundDate',     label: 'Inbound Date Included' },
+    { key: 'position',        label: 'Outbound Position' },
+    { key: 'hubStatus',       label: 'Hub Status' },
+    { key: 'inboundUserId',   label: 'Inbound User ID' },
+    { key: 'outboundAddedBy', label: 'Outbound Added By' },
   ]
 
   return (
@@ -203,13 +201,8 @@ export default function PiezasTable({ pieces }) {
                         ? <span className="badge-blue">{p.tmsInfo.hubStatus}</span>
                         : <span className="text-gray-600">—</span>}
                     </td>
-                    <td className="px-4 py-2.5 font-mono text-gray-400 whitespace-nowrap text-[11px]">
-                      {p.tmsInfo?.trackingNumber || '—'}
-                    </td>
-                    <td className="px-4 py-2.5 text-gray-400 whitespace-nowrap">{p.tmsInfo?.priority || '—'}</td>
-                    <td className="px-4 py-2.5 text-gray-400 whitespace-nowrap max-w-[180px] truncate" title={p.tmsInfo?.statusDesc}>
-                      {p.tmsInfo?.statusDesc || '—'}
-                    </td>
+                    <td className="px-4 py-2.5 text-gray-400 whitespace-nowrap">{p.tmsInfo?.inboundUserId  || '—'}</td>
+                    <td className="px-4 py-2.5 text-gray-400 whitespace-nowrap">{p.tmsInfo?.outboundAddedBy || '—'}</td>
                   </tr>
                 )
               })
